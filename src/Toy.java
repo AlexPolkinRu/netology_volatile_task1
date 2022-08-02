@@ -6,7 +6,7 @@
 public class Toy implements Runnable{
 
     private String threadName;
-    private Switcher switcher;
+    private final Switcher switcher;
 
     public Toy (Switcher switcher) {
         this.switcher = switcher;

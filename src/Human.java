@@ -15,7 +15,7 @@ public class Human implements Runnable {
     private long switchingTime;
     private String threadName;
 
-    private Switcher switcher;
+    private final Switcher switcher;
 
     public Human(Switcher switcher) {
         this.switcher = switcher;
