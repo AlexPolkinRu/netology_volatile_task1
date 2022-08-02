@@ -3,33 +3,21 @@
  * 29.07.2022
  */
 
-public class Main implements Runnable{
-
-    volatile static boolean isSwitchOn;
-
-    @Override
-    public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
-
-            if (Main.isSwitchOn) {
-                System.out.println("    " + Thread.currentThread().getName() + " выключила тумблер");
-                Main.isSwitchOn = false;
-            }
-
-        }
-    }
+public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
-        Thread human = new Thread(new Human(), "человек");
-        Thread box = new Thread(new Main(), "шкатулка");
+        Switcher switcher = new Switcher();
+
+        Thread human = new Thread(new Human(switcher), "человек");
+        Thread toy = new Thread(new Toy(switcher), "мохнатая рука");
 
         human.start();
-        box.start();
+        toy.start();
 
         human.join();
-        box.interrupt();
+        toy.interrupt();
 
-        System.out.println("The End");
+        System.out.println("И так пока не сядут батарейки");
     }
 }

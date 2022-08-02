@@ -15,6 +15,13 @@ public class Human implements Runnable {
     private long switchingTime;
     private String threadName;
 
+    private Switcher switcher;
+
+    public Human(Switcher switcher) {
+        this.switcher = switcher;
+    }
+
+
     @Override
     public void run() {
 
@@ -25,17 +32,13 @@ public class Human implements Runnable {
             switchingTime = new Random().nextInt(MAX_SWITCHING_TIME - MIN_SWITCHING_TIME) + MIN_SWITCHING_TIME;
 
             try {
+                switcher.on(threadName);
                 sleep(switchingTime);
             } catch (InterruptedException e) {
                 break;
             }
 
-            if (!Main.isSwitchOn) {
-
-                System.out.println("[" + (i + 1) + "] " + threadName + " включил тумблер");
-                Main.isSwitchOn = true;
-
-            }
         }
+
     }
 }
